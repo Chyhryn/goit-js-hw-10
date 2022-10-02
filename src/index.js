@@ -1,5 +1,5 @@
 import './css/styles.css';
-import API from './fetchCountries';
+import { fetchCountries } from './fetchCountries';
 import debounce from 'lodash.debounce';
 import Notiflix from 'notiflix';
 
@@ -17,11 +17,12 @@ function onSearchCountry(event) {
     clearMarkup();
     return;
   }
-  API.fetchCountries(inputData).then(createMarkup).catch(catchError);
+  fetchCountries(inputData).then(createMarkup).catch(catchError);
 }
 
 function createMarkup(country) {
   if (country.length > 10) {
+    clearMarkup();
     return Notiflix.Notify.info(
       'Too many matches found. Please enter a more specific name.'
     );
